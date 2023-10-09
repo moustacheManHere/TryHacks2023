@@ -4,10 +4,6 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import '@/styles/globals.css'
 
-type propLayouts = {
-    children: ReactNode
-}
-
 export const metadata: Metadata = {
     title: 'MediAssist',
     description: 'A simple health care app',
