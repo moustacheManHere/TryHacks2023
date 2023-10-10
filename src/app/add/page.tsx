@@ -1,16 +1,15 @@
 "use client"
-import React from 'react'
+import { FC, FormEvent, useRef, useState} from 'react'
 import Form from '@/app/add/Form'
-import { FormEvent, useRef, useState } from 'react'
 import ProgressSpinner from '@/components/ProgressSpinner'
 
-const Addpage = () => {
+const AddPage: FC = () => {
     // Input Reference
-    const ref = useRef(null);
+    const ref = useRef<HTMLInputElement>(null);
 
-    const [data, setData] = useState({});
-    const [loading, setLoading] = useState(null);
-    const [error, setError] = useState("");
+    const [data, setData] = useState<object>({});
+    const [loading, setLoading] = useState<boolean | null>(null);
+    const [error, setError] = useState<string>("");
 
     // Convert image file to byte string format
     const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
@@ -77,4 +76,4 @@ const Addpage = () => {
     )
 }
 
-export default Addpage
+export default AddPage
