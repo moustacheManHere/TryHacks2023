@@ -15,13 +15,6 @@ module.exports = {
                 "2xl": "1400px",
             },
         },
-        colors: {
-            "medical": {
-                "light": "#01263D",
-                "DEFAULT": "#628FA6",
-                "dark": "#C2DFF0"
-            },
-        },
         extend: {
             colors: {
                 background: "#f5f5f5",
@@ -33,6 +26,15 @@ module.exports = {
                 secondary: {
                     DEFAULT: "#F4B888",
                     foreground: "#1a1a1a"
+                },
+                success: {
+                    DEFAULT: "#84cc16",
+                    foreground: "#1a1a1a"
+                },
+                "medical": {
+                    "light": "#C2DFF0",
+                    "DEFAULT": "#628FA6",
+                    "dark": "#01263D"
                 },
             },
             keyframes: {

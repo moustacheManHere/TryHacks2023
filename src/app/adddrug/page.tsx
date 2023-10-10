@@ -13,26 +13,44 @@ const page = () => {
     const [loading, setLoading] = useState<boolean | null>(null);
     const [error, setError] = useState<string>("");
 
+    // Convert image file to byte string format
+    const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = error => reject(error);
+    });
+
     const handleSubmit = async(e: FormEvent) => {
         e.preventDefault();
         // Check if ref is not null
         if (ref.current?.files) {
             const file = ref.current?.files[0];
             if (file) {
-                try  {
+                setLoading(true);
+                try {
+                    // Convert image file to byte string format
                     setError("");
-                    setLoading(true);
-                    const data = await image_to_text(file);
-                    setData(data);
-                    setLoading(false);
+                    const byteArray = await toBase64(file);
+                    console.log(byteArray);
+                    try  {
+                        const data = await image_to_text(byteArray);
+                        setData(data);
+                        setLoading(false);
+                    } catch (err) {
+                        setError("Error processing file");
+                        setData({});
+                        setLoading(null);
+                    }
                 } catch (err) {
-                    setLoading(false);
                     setError("Error processing file");
                     setData({});
+                    setLoading(null);
                 }
             } else {
                 setError("No file selected");
                 setData({});
+                setLoading(null);
             }
             // Reset input
             ref.current.value = "";
