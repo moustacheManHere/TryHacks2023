@@ -4,7 +4,7 @@ import Form from '@/app/add/Form'
 import { FormEvent, useRef, useState } from 'react'
 import ProgressSpinner from '@/components/ProgressSpinner'
 
-const page = () => {
+const Addpage = () => {
     // Input Reference
     const ref = useRef<HTMLInputElement>(null);
 
@@ -77,4 +77,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Addpage
