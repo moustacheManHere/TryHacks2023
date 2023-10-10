@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Clerk Components */
+.cl-userButtonTrigger {
+    box-shadow: none !important;
+}
+
+.cl-internal-b3fm6y, .cl-userButtonPopoverFooter {
+    display: none !important;
+}
