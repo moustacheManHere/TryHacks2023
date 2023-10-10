@@ -1,8 +1,7 @@
 "use client";
 import React from 'react'
-import Form  from '@/app/adddrug/Form'
+import Form from '@/app/add/Form'
 import { FormEvent, useRef, useState } from 'react'
-import image_to_text from '@/fake_api/image_to_text'
 import ProgressSpinner from '@/components/ProgressSpinner'
 
 const page = () => {
@@ -21,7 +20,16 @@ const page = () => {
         reader.onerror = error => reject(error);
     });
 
-    const handleSubmit = async(e: FormEvent) => {
+    // Fake API call
+    const image_to_text = (byteString: any) => {
+        return new Promise<object>((resolve, reject) => {
+            setTimeout(() => {
+                resolve({ 'DrugName': 'Viagra', 'Dosage': '100mg', 'Food Interactions': 'Take with or without food. If taken with a high-fat meal the medicine may take a little longer to start working.' })
+            }, 1500)
+        })
+    }
+
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         // Check if ref is not null
         if (ref.current?.files) {
@@ -33,7 +41,7 @@ const page = () => {
                     setError("");
                     const byteArray = await toBase64(file);
                     console.log(byteArray);
-                    try  {
+                    try {
                         const data = await image_to_text(byteArray);
                         setData(data);
                         setLoading(false);
@@ -56,17 +64,17 @@ const page = () => {
             ref.current.value = "";
         }
     }
-  return (
-    <div className="flex flex-col items-center justify-center w-full h-72 space-y-8">
-        <Form onSubmit={handleSubmit} inputRef={ref} />
-        <div className="flex flex-col items-center justify-center">
-            {loading!== null && <ProgressSpinner text={loading ? "Processing Image" : "Processed Image"} isLoading={loading} />}
-            {error && <p>{error}</p>}
-            {data && Object.keys(data).length > 0  && <p>{JSON.stringify(data)}</p>}
+    return (
+        <div className="flex flex-col items-center justify-center w-full h-72 space-y-8">
+            <Form onSubmit={handleSubmit} inputRef={ref} />
+            <div className="flex flex-col items-center justify-center">
+                {loading !== null && <ProgressSpinner text={loading ? "Processing Image" : "Processed Image"} isLoading={loading} />}
+                {error && <p>{error}</p>}
+                {data && Object.keys(data).length > 0 && <p>{JSON.stringify(data)}</p>}
+            </div>
         </div>
-    </div>
-   
-  )
+
+    )
 }
 
 export default page

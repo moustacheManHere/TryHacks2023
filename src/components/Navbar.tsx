@@ -15,15 +15,15 @@ const Navbar = () => {
         },
         {
             name: 'Add',
-            url: '/adddrug',
+            url: '/add',
         },
         {
             name: 'Info',
-            url: '/druginfo',
+            url: '/info',
         },
         {
             name: 'List',
-            url: '/listdrugs'
+            url: '/list'
         }
     ]
 
