@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React from 'react'
 import Form from '@/app/add/Form'
 import { FormEvent, useRef, useState } from 'react'
@@ -6,11 +6,11 @@ import ProgressSpinner from '@/components/ProgressSpinner'
 
 const Addpage = () => {
     // Input Reference
-    const ref = useRef<HTMLInputElement>(null);
+    const ref = useRef(null);
 
-    const [data, setData] = useState<object>({});
-    const [loading, setLoading] = useState<boolean | null>(null);
-    const [error, setError] = useState<string>("");
+    const [data, setData] = useState({});
+    const [loading, setLoading] = useState(null);
+    const [error, setError] = useState("");
 
     // Convert image file to byte string format
     const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
