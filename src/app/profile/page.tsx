@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>Another test</div>
+    <div>This should be the profile page</div>
   )
 }
 
