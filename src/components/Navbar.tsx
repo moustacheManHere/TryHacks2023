@@ -1,28 +1,14 @@
-"use client"
-import ProfileIcon from "./profileIcon"
 import Logo from "./Logo"
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { NavLink } from "./NavLink"
+import { UserButton, auth } from '@clerk/nextjs'
+import { SignInComponent, SignUpComponent, SignOutComponent } from "./AuthComponents"
+import { Sign } from "crypto"
 
 const Navbar = () => {
+    const { userId } = auth();
 
-    const NavLink = ({ link, name }: {link: string, name: string}) => {
-
-        const pathname = usePathname();
-
-        return (
-            <Link href={link} className={`mx-4 relative group ${pathname === link ? 'text-medical' : 'text-black'}`}>
-                {name}
-                <span className={`h-[1px] inline-block bg-medical absolute left-0 -bottom-0.5 
-                group-hover:w-full transition-[width] ease duration-300 
-                ${pathname === link ? 'w-full' : 'w-0'}`}>
-                    &nbsp;
-                </span>
-            </Link>
-        )
-    }
-
-    const links: Array<{name: string, url: string}> = [
+    const links: Array<{ name: string, url: string }> = [
         {
             name: 'Home',
             url: '/'
@@ -49,7 +35,17 @@ const Navbar = () => {
                         <NavLink link={item.url} key={i} name={item.name}></NavLink>
                     ))}
                 </nav>
-                <ProfileIcon />
+                <div className="flex items-center">
+                    {!userId ? (
+                         <>
+                            <SignInComponent />
+                            <SignUpComponent />
+                        </>
+                    ):(
+                        <Link href="/profile" className="mx-4 relative group text-black">Profile</Link>
+                    )}
+                    <UserButton afterSignOutUrl='/' />
+                </div>
             </div>
             <div className="absolute left-[50%] top-6 lg:top-4 translate-x-[-50%]">
                 <Logo />
