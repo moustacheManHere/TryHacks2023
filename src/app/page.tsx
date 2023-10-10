@@ -5,7 +5,7 @@ import MutedText from '@/components/MutedText'
 import { Healthcare } from '@/components/healthcaresvg'
 import '@/styles/globals.css'
 
-export default function App({ pageProps }: AppProps) {
+export default function App() {
     return (
         <main className='flex w-full flex-col items-center justify-center' >
             <main className="flex items-start text-dark w-full min-h-[90vh]">
