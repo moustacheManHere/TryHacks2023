@@ -4,10 +4,6 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import '@/styles/globals.css'
 
-type propLayouts = {
-    children: ReactNode
-}
-
 export const metadata: Metadata = {
     title: 'MediAssist',
     description: 'A simple health care app',
@@ -17,6 +13,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
+            <head>
+                <link rel="icon" href="/favicon.ico" />
+            </head>
             <body>
                 <main className="min-h-screen w-full">
                     <Navbar />
