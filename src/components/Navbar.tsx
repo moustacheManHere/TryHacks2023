@@ -2,8 +2,7 @@ import Logo from "./Logo"
 import Link from 'next/link'
 import { NavLink } from "./NavLink"
 import { UserButton, auth } from '@clerk/nextjs'
-import { SignInComponent, SignUpComponent, SignOutComponent } from "./AuthComponents"
-import { Sign } from "crypto"
+import { SignInComponent, SignUpComponent } from "./AuthComponents"
 
 const Navbar = () => {
     const { userId } = auth();
