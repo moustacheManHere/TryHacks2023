@@ -1,12 +1,17 @@
 "use client"
 
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import SearchBar from '@/components/SearchBar';
 import { Button } from "@/components/ui/button";
+import GetUser from './getUser';
 
-const ListDrugsPage: FC = () => {
+
+
+
+function ListDrugsPage()  {
     // Initial list of drugs
+    //const initialDrugs = GetUser()
     const initialDrugs = [
         {
             id: 1,
