@@ -1,40 +1,29 @@
 'use client'
 
-import Link from "next/link"
-import { FC, useState } from "react"
+import { useState, useEffect } from "react"
+import Coins from './components/Coins'
+import SearchCoins from './components/SearchCoins'
 
-const Home = () => {
-    return (
-        <h1>Welcome to my application!</h1>
-    );
-  };
-  'use client'
+export default function Home() {
+  const [coins, setCoins] = useState([]);
 
-import Link from "next/link"
-import { useState } from "react"
+  useEffect(() => {
+    const getCoins = async () => {
+      const response = await fetch('/api/coins');
+      const coins = await response.json();
+      setCoins(coins.data.coins);
+    }
 
-export default function searchapi({ getSearchResults }) {
-   const [query, setQuery] = useState('')
+    getCoins();
+  }, []);
 
-   const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    const response = await fetch(`/api/coins/search?query=${query}`)
-
-    const api = await response.json()
-
-    getSearchResults(coin)
-
-   }
 
   return (
-    <div className="text-center my-20">
-        <form onSubmit={handleSubmit}>
-            <input className="text-black border-2 border-black rounded-full px-3 py-2" type="text" placeholder="Search drug..." value={query} onChange={(e) => setQuery(e.target.value)} />
-            <button className="bg-black text-white rounded-full px-3 py-2 hover:bg-black/60" type="submit">Search</button>
-        </form>
-    </div>
+   <div className="text-center">
+      <h1 className="font-bold text-6xl mt-14">Drug Infomation</h1>
+      <SearchCoins getSearchResults={(results) => setCoins(results)} />
+      <Coins coins={coins} />
+   </div>
   )
 }
 
-  export default Home;
