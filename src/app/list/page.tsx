@@ -68,12 +68,7 @@ const ListDrugsPage: FC = () => {
                     value={searchTerm}
                     onChange={handleSearch}
                 />
-                <Button variant="medical" size="icon">
-                    <Link href='/add' className="flex flex-col justify-center items-center">
-                        <span className="bg-white h-0.5 w-5 rounded-sm translate-y-[0.2rem] p-0.5"></span>
-                        <span className="bg-white h-0.5 w-5 rounded-sm rotate-90  p-0.5"></span>
-                    </Link>
-                </Button>
+                
             </div>
             <ul className="pl-4">
                 {drugs.map((drug) => (
