@@ -90,7 +90,7 @@ const AddPage: FC = () => {
     return (
         <div className="flex flex-col items-center justify-center w-full space-y-8 p-24">
             <div className="flex flex-col items-center space-y-3 mb-6">
-                <h1 className="font-bold text-6xl">File Upload</h1>
+                <h1 className="font-bold text-6xl text-medical-dark/90">File Upload</h1>
                 <h2>Upload your files here!</h2>
             </div>
             <Form onSubmit={handleSubmit} inputRef={ref} />

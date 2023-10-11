@@ -59,9 +59,12 @@ function ListDrugsPage() {
     return (
         <div className="p-8">
             <div className="flex flex-col sm:flex-row justify-center items-center mb-4  p-12">
-                <h1 className="text-3xl font-semibold mb-2 sm:mb-0">Drug List</h1>
-
+                <div className="flex flex-col items-center space-y-3 mb-6">
+                    <h1 className="font-bold text-6xl text-medical-dark/90">Drug List</h1>
+                    <h2>Search through drugs from your list here</h2>
+                </div>
             </div>
+
             <div className="flex justify-center mb-12 space-x-2">
                 <SearchBar
                     placeholder="Search drugs..."
