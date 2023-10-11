@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { FormEvent, RefObject, useRef } from 'react'
+import { FormEvent, RefObject } from 'react'
 
 type FormProps = {
     onSubmit: (e: FormEvent) => void;
