@@ -25,7 +25,7 @@ const handler = async (req: Request) => {
     const body = JSON.stringify(payload);
 
     // Create a new SVIX instance with the webhook secret
-    const webhookSecret = process.env.WEBHOOK_SECRET;
+    const webhookSecret = process.env.WEBHOOK_SECRET_USER;
 
     if (!webhookSecret) {
         throw new Error('Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local')
