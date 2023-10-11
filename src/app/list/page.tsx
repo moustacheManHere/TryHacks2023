@@ -1,55 +1,49 @@
 "use client"
 
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import SearchBar from '@/components/SearchBar';
 import { Button } from "@/components/ui/button";
+import GetUser from './getUser';
+import { useEffect } from 'react';
 
-const ListDrugsPage: FC = () => {
+interface drugList {
+    id:string;
+    name: string;
+    description: string;
+}
+
+
+function ListDrugsPage()  {
     // Initial list of drugs
-    const initialDrugs = [
+    //const initialDrugs = GetUser()
+    const initialDrugs:drugList[] = [
         {
-            id: 1,
-            name: 'Drug 1',
-            description: 'Description of Drug 1',
-        },
-        {
-            id: 2,
-            name: 'Drug 2',
-            description: 'Description of Drug 2',
-        },
-        {
-            id: 3,
-            name: 'Drug 3',
-            description: 'Description of Drug 3',
-        },
-        {
-            id: 4,
-            name: 'Drug 4',
-            description: 'Description of Drug 4',
-        },
-        {
-            id: 5,
-            name: 'Drug 5',
-            description: 'Description of Drug 5',
-        },
-        {
-            id: 6,
-            name: 'Drug 6',
-            description: 'Description of Drug 6',
+            id: "",
+            name: '',
+            description: '',
         }
     ];
-
     const [drugs, setDrugs] = useState(initialDrugs);
+    const [drugs2, setDrugs2] = useState(initialDrugs);
     const [searchTerm, setSearchTerm] = useState('');
-
+    useEffect(()=>{
+        const smokeDrugs = async () => {
+            const freshCocaine:0|drugList[]|null = await GetUser()
+            if (freshCocaine==0 || freshCocaine == null){
+                return null
+            }
+            setDrugs(freshCocaine)
+            setDrugs2(freshCocaine)
+        }
+        smokeDrugs()
+    },[])
     // Function to handle search
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const term = e.target.value.toLowerCase();
         setSearchTerm(term);
-
         // Filter drugs based on the search term
-        const filteredDrugs = initialDrugs.filter((drug) =>
+        const filteredDrugs = drugs2.filter((drug) =>
             drug.name.toLowerCase().includes(term)
         );
 
