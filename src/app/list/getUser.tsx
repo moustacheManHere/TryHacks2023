@@ -1,6 +1,7 @@
 "use server"
 import { currentUser } from '@clerk/nextjs';
 import { User } from '@clerk/nextjs/server';
+import { getAllDrugs, prettifyText } from '../api/api';
 
 interface ApiResponse {
     page: number;
@@ -42,7 +43,8 @@ interface ExpandedItem {
 }
 
 interface drugList {
-    id:string;
+    uid:string;
+    drugID: string;
     name: string;
     description: string;
 }
@@ -64,22 +66,41 @@ async function GetUser() {
         return null
     }
     var id:string = user.id
-    var res:ApiResponse|null = (await fetch(`https://mediassistdb.hop.sh/api/collections/customer/records?filter=(custID="${id}")`).then(res => {return res.json()}))
-    if (res == null){
+    var uid:ApiResponse|null = (await fetch(`https://mediassistdb.hop.sh/api/collections/customer/records?filter=(custID="${id}")`).then(res => {return res.json()}))
+    if (uid === null){
         return 0
     }
-    var userUniqueID = res.items[0].id
-    var nextres:NextApiResponse|null = (await fetch(`https://mediassistdb.hop.sh/api/collections/custDrugs/records?filter=(custID="${userUniqueID}")&expand=drugID`).then(res => {return res.json()}))
+    var userUniqueID = uid.items[0].id
+    // var nextres:NextApiResponse|null = (await fetch(`https://mediassistdb.hop.sh/api/collections/custDrugs/records?filter=(custID="${userUniqueID}")&expand=drugID`).then(res => {return res.json()}))
+
+    let res;
+    try {
+        res = await getAllDrugs(userUniqueID);
+    } catch (err) {
+        return 0;
+    }
     
-    if (nextres == null || nextres == undefined){
+    if (res === null || res === undefined){
         return 0
     }
     var drugs:drugList[] = []
-    for (var i=0; i<res.items.length;i++){
-        var obj = {
-            "id": nextres.items[i].expand.drugID.id,
-            "name" : nextres.items[i].expand.drugID.name,
-            "description" : nextres.items[i].expand.drugID.summary
+    for (var i=0; i<res.length;i++)  {
+        const drugItem = res[i].expand
+        let obj = {
+            "uid": "",
+            "drugID": "",
+            "name" : "",
+            "description" : ""
+        }
+        if (drugItem) {
+            const name = prettifyText(drugItem.drugID.name);
+            const summary = prettifyText(drugItem.drugID.summary);
+            obj = {
+                "uid": drugItem.drugID.id,
+                "drugID": drugItem.drugID.drugID,
+                "name" : name,
+                "description" : summary
+            }
         }
         drugs.push(obj)
     }

@@ -21,7 +21,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <body>
                     <main className="min-h-screen w-full">
                         <Navbar />
-                        {children}
+                        <div className="h-[95%] w-full">
+                            {children}
+                        </div>
                         <Footer />
                     </main>
                 </body>

@@ -1,25 +1,24 @@
 "use client"
-
-import { useState } from 'react';
 import Link from 'next/link';
 import SearchBar from '@/components/SearchBar';
-import { Button } from "@/components/ui/button";
 import GetUser from './getUser';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { InformationIcon } from '@/components/SVGIcon';
 
 interface drugList {
-    id:string;
+    uid: string;
+    drugID: string;
     name: string;
     description: string;
 }
 
 
-function ListDrugsPage()  {
+function ListDrugsPage() {
     // Initial list of drugs
-    //const initialDrugs = GetUser()
-    const initialDrugs:drugList[] = [
+    const initialDrugs: drugList[] = [
         {
-            id: "",
+            uid: "",
+            drugID: "",
             name: '',
             description: '',
         }
@@ -27,17 +26,24 @@ function ListDrugsPage()  {
     const [drugs, setDrugs] = useState(initialDrugs);
     const [drugs2, setDrugs2] = useState(initialDrugs);
     const [searchTerm, setSearchTerm] = useState('');
-    useEffect(()=>{
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
         const smokeDrugs = async () => {
-            const freshCocaine:0|drugList[]|null = await GetUser()
-            if (freshCocaine==0 || freshCocaine == null){
+            setLoading(true);
+            const freshCocaine: 0 | drugList[] | null = await GetUser()
+            if (freshCocaine == 0 || freshCocaine == null) {
                 return null
             }
             setDrugs(freshCocaine)
             setDrugs2(freshCocaine)
+            setLoading(false);
         }
         smokeDrugs()
-    },[])
+    }, [])
+
+
+
     // Function to handle search
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const term = e.target.value.toLowerCase();
@@ -54,7 +60,7 @@ function ListDrugsPage()  {
         <div className="p-8">
             <div className="flex flex-col sm:flex-row justify-center items-center mb-4  p-12">
                 <h1 className="text-3xl font-semibold mb-2 sm:mb-0">Drug List</h1>
-              
+
             </div>
             <div className="flex justify-center mb-12 space-x-2">
                 <SearchBar
@@ -62,16 +68,24 @@ function ListDrugsPage()  {
                     value={searchTerm}
                     onChange={handleSearch}
                 />
-                
+
             </div>
             <ul className="pl-4">
                 {drugs.map((drug) => (
-                    <li key={drug.id} className="mb-4 p-4 border border-gray-300 rounded-lg">
-                        <h2 className="text-xl font-semibold">{drug.name}</h2>
-                        <p className="text-gray-600">{drug.description}</p>
-                        <Link href="/info">
-                            <span className="text-blue-600 hover:underline">See Details</span>
-                        </Link>
+                    <li key={drug.uid} className="mb-4 p-4 border border-gray-300 rounded-lg bg-medical-light">
+                        <div className={`${loading ? "hidden" : "visible"}`}>
+                            <div className="flex gap-x-2">
+                                <h2 className="text-xl font-semibold">{drug.name}</h2>
+                                <Link href={`/list/${drug.drugID}`} className="self-center">
+                                    <div className={`${loading ? "hidden" : "visible"}`}><InformationIcon /></div>
+                                </Link>
+                            </div>
+
+                            <p className="text-gray-600">{drug.description}</p>
+                        </div>
+                        <div className={`${loading ? "visible" : "hidden"}`}>
+                            <div>Loading...</div>
+                        </div>
                     </li>
                 ))}
             </ul>

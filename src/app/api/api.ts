@@ -39,6 +39,19 @@ export const getCustDrugs = async (custID: string, drugID: string) => {
     return record
 }
 
+export const getAllDrugs = async (custID: string) => {
+    const records = await pb.collection('custDrugs').getFullList({
+        filter: `custID="${custID}"`,
+        expand: 'drugID',
+        sort: 'drugID'
+    });
+
+    if (records.length === 0 || records === undefined) {
+        throw new Error("No drugs found");
+    }
+
+    return records
+}
 
 export const getDrugDetails = async (drugID: string) => {
     const endpoint = "https://new-flask-app.hop.sh/details";
@@ -61,4 +74,22 @@ export const getDrugDetails = async (drugID: string) => {
     } else {
         return response;
     }
+}
+
+export const prettifyText = (text: string) => {
+    if (!text) {
+        return text;
+    }
+    text = text.replace(/\.\d+/g, '.');
+    text = text.replace(/\d+(?=,)/g, '');
+    text = text.replace(/\,+(?=,)/g, '');
+    text = text.replace(/,\d+\./g, '.');
+    text = text.replace(/([A-Z])(\d+)([a-z])/g, '\$1\$2 \$3');
+    text = text.replace(/(\d+)([a-zA-Z])/g, ' \$2');
+    text = text.replace(/([a-z])(\d+)/g, '\$1');
+
+    // Adds space before every uppercase character and trim off the leading and trailing spaces
+    text = text.replace(/([A-Z]+)/g, ' $1').trim();
+
+    return text;
 }
