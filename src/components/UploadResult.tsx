@@ -8,6 +8,8 @@ import { Tick, Cross } from "@/components/SVGIcon"
 import { Button } from "@/components/ui/button"
 import { insertDrugs, insertCustDrugs, getDrugDetails, getDrugPID, getUserPID } from '@/app/api/api'
 import { useAuth } from "@clerk/nextjs"
+import { InformationIcon } from "@/components/SVGIcon"
+import AddDrugButton from "@/components/AddDrugButton"
 
 type UploadProps = {
     error: boolean,
@@ -77,21 +79,18 @@ const UploadResult = ({ error, text, display, className }: UploadProps) => {
                         </div>
 
                         <div>
-                            <AlertTitle>{text.Header}</AlertTitle>
+                            <div className="flex space-x-2">
+                                <AlertTitle>{text.Header}</AlertTitle>
+                                <Link href={`/list/${id}`} className={`${error ? 'hidden' : 'display'}`}>
+                                    <InformationIcon />
+                                </Link>
+                            </div>
                             <AlertDescription>
                                 <p>{text.Content}</p>
-                                <Link href={`/info/${id}`} className={`${error ? 'hidden' : 'display'}`}>
-                                    View More Details
-                                </Link>
                             </AlertDescription>
                         </div>
                     </div>
-                    <Button variant="medical" size="icon" className={`${error ? 'hidden' : 'display'}`} onClick={handleClick}>
-                        <div className="flex flex-col justify-center items-center">
-                            <span className="bg-white h-0.5 w-5 rounded-sm translate-y-[0.2rem] p-0.5"></span>
-                            <span className="bg-white h-0.5 w-5 rounded-sm rotate-90  p-0.5"></span>
-                        </div>
-                    </Button>
+                    <AddDrugButton onClick={handleClick} error={error} />
                 </div>
             </Alert>
         </div>

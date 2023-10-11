@@ -88,8 +88,11 @@ const AddPage: FC = () => {
         }
     }
     return (
-        <div className="flex flex-col items-center justify-center w-full h-72 space-y-8 p-12">
-            <h1 className="font-bold text-6xl">Upload your file here!</h1>
+        <div className="flex flex-col items-center justify-center w-full space-y-8 p-24">
+            <div className="flex flex-col items-center space-y-3 mb-6">
+                <h1 className="font-bold text-6xl">File Upload</h1>
+                <h2>Upload your files here!</h2>
+            </div>
             <Form onSubmit={handleSubmit} inputRef={ref} />
             <div className="flex flex-col items-center justify-center">
                 {loading !== null && <ProgressSpinner text={loading ? "Processing Image" : "Processed Image"} isLoading={loading} className="pb-4" />}
