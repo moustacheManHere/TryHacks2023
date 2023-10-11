@@ -10,7 +10,6 @@ export default function Home() {
             Follow these simple steps to upload pictures of your medicine labels and view their details.
         </p>
 
-        {/* Step 1 */}
         <div className="step mb-6">
             <h2 className="text-xl font-semibold mb-2">Step 1: Log In</h2>
             <p>
@@ -18,7 +17,6 @@ export default function Home() {
             </p>
         </div>
 
-        {/* Step 2 */}
         <div className="step mb-6">
             <h2 className="text-xl font-semibold mb-2">Step 2: Navigate to Upload</h2>
             <p>
@@ -26,7 +24,6 @@ export default function Home() {
             </p>
         </div>
 
-        {/* Step 3 */}
         <div className="step mb-6">
             <h2 className="text-xl font-semibold mb-2">Step 3: Upload Medicine Labels</h2>
             <p>
@@ -34,7 +31,6 @@ export default function Home() {
             </p>
         </div>
 
-        {/* Step 4 */}
         <div className="step mb-6">
             <h2 className="text-xl font-semibold mb-2">Step 4: View Your Uploaded Labels</h2>
             <p>
@@ -42,7 +38,6 @@ export default function Home() {
             </p>
         </div>
 
-        {/* Step 5 */}
         <div className="step mb-6">
             <h2 className="text-xl font-semibold mb-2">Step 5: Explore Details</h2>
             <p>
@@ -50,7 +45,6 @@ export default function Home() {
             </p>
         </div>
 
-        {/* Conclusion */}
         <div className="step">
             <h2 className="text-xl font-semibold mb-2">That's It!</h2>
             <p>
