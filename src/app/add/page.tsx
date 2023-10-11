@@ -1,15 +1,16 @@
 "use client"
-import { FC, FormEvent, useRef, useState} from 'react'
+import { FC, FormEvent, useRef, useState } from 'react'
 import Form from '@/app/add/Form'
 import ProgressSpinner from '@/components/ProgressSpinner'
+import UploadResult from '@/components/UploadResult' 
 
 const AddPage: FC = () => {
     // Input Reference
     const ref = useRef<HTMLInputElement>(null);
 
-    const [data, setData] = useState<object>({});
+    const [data, setData] = useState<{"Header"?:string, "Content"?:string}>({"Header" : "", "Content": ""});
     const [loading, setLoading] = useState<boolean | null>(null);
-    const [error, setError] = useState<string>("");
+    const [error, setError] = useState<boolean>(false);
 
     // Convert image file to byte string format
     const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
@@ -19,13 +20,37 @@ const AddPage: FC = () => {
         reader.onerror = error => reject(error);
     });
 
-    // Fake API call
-    const image_to_text = (byteString: any) => {
-        return new Promise<object>((resolve, reject) => {
-            setTimeout(() => {
-                resolve({ 'DrugName': 'Viagra', 'Dosage': '100mg', 'Food Interactions': 'Take with or without food. If taken with a high-fat meal the medicine may take a little longer to start working.' })
-            }, 1500)
-        })
+    // API Call
+    const image_to_text = async (byteString: string) => {
+        const endpoint = "https://mediassistapi.onrender.com/upload";
+        const body = {
+            "image": byteString.split(',')[1]
+        };
+
+        // Call API
+        const res = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body)
+        });
+
+        const response: {
+            msg?:string,
+            id?: number,
+            name?: string
+        } = await res.json();
+
+        if (!res.ok) {
+            const error = {"Header": `Error ${res.status}`, "Content": `This medicine is ${response['msg']}`}
+            setData(error);
+            throw new Error(response['msg']);
+        } else {
+            return response;
+        }
+
     }
 
     const handleSubmit = async (e: FormEvent) => {
@@ -35,28 +60,27 @@ const AddPage: FC = () => {
             const file = ref.current?.files[0];
             if (file) {
                 setLoading(true);
+                setData({"Header": "", "Content": ""});
                 try {
                     // Convert image file to byte string format
-                    setError("");
+                    setError(false);
                     const byteArray = await toBase64(file);
-                    console.log(byteArray);
                     try {
                         const data = await image_to_text(byteArray);
-                        setData(data);
+                        setData({"Header": `ID: ${data['id']}`, "Content": `This drug is called ${data['name']}`});
                         setLoading(false);
                     } catch (err) {
-                        setError("Error processing file");
-                        setData({});
+                        setError(true);
                         setLoading(null);
                     }
                 } catch (err) {
-                    setError("Error processing file");
-                    setData({});
+                    setError(true);
+                    setData({"Header": "Error 400", "Content": "Error Processing File"});
                     setLoading(null);
                 }
             } else {
-                setError("No file selected");
-                setData({});
+                setError(true);
+                setData({"Header": "Error 400", "Content": "No file selected"});
                 setLoading(null);
             }
             // Reset input
@@ -67,9 +91,8 @@ const AddPage: FC = () => {
         <div className="flex flex-col items-center justify-center w-full h-72 space-y-8">
             <Form onSubmit={handleSubmit} inputRef={ref} />
             <div className="flex flex-col items-center justify-center">
-                {loading !== null && <ProgressSpinner text={loading ? "Processing Image" : "Processed Image"} isLoading={loading} />}
-                {error && <p>{error}</p>}
-                {data && Object.keys(data).length > 0 && <p>{JSON.stringify(data)}</p>}
+                {loading !== null && <ProgressSpinner text={loading ? "Processing Image" : "Processed Image"} isLoading={loading} className="pb-4"/>}
+                <UploadResult error={error} text={data} display={data["Content"]!==""} />
             </div>
         </div>
 
