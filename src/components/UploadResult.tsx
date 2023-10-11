@@ -6,7 +6,7 @@ import {
 import Link from "next/link"
 import { Tick, Cross } from "@/components/SVGIcon"
 import { Button } from "@/components/ui/button"
-import { insertDrugs, insertCustDrugs, getDrugDetails } from '@/app/api/api'
+import { insertDrugs, insertCustDrugs, getDrugDetails, getDrugPID, getUserPID } from '@/app/api/api'
 import { useAuth } from "@clerk/nextjs"
 
 type UploadProps = {
@@ -41,19 +41,30 @@ const UploadResult = ({ error, text, display, className }: UploadProps) => {
             return;
         }
 
-        // Part 2: Insert Drug into Database if it doe
+        // Part 2: Get Unique Drug ID from Database
+        let drugPID;
         try {
+            drugPID = await getDrugPID(id);
+        } catch (err) {
+            // Part 3: If Drug doesn't exist in database, insert it
             await insertDrugs(id, res.genName, res.summary);
-            // Part 3: Link Drug to User
-            try {
-                await insertCustDrugs(userId, id);
-            } catch (err) {
-                return;
-            }
+            drugPID = await getDrugPID(id);
+        }
+
+        // Part 4: Get Unique Customer ID from Database
+        let customerPID;
+        try {
+            customerPID = await getUserPID(userId);
         } catch (err) {
             return;
         }
 
+        // Part 5: Insert into Customer-Drug Table if it doesn't exist
+        try {
+            await insertCustDrugs(customerPID.id, drugPID.id);
+        } catch (err) {
+            return;
+        }
     }
 
     return (
