@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import {motion} from 'framer-motion'
 
@@ -11,20 +12,6 @@ const MutedText = ({text, className=""} : {text: string, className?:string}) => 
             transition:{
                 delay:0.3,
                 staggerChildren:0.08
-            }
-        }
-    }
-    
-    const singleWord = {
-        initial: {
-            opacity: 0,
-            y: 50
-        },
-        animate: {
-            opacity:1,
-            y:0,
-            transition:{
-                duration:1
             }
         }
     }
