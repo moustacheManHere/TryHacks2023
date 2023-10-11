@@ -13,28 +13,28 @@ export default function Home() {
         <div className="step mb-6">
             <h2 className="text-xl font-semibold mb-2">Step 1: Log In</h2>
             <p>
-                Log in to your account or sign up if you're a new user. Make sure you have the necessary credentials.
+                Log in to your account or sign up if you are a new user. Make sure you have the necessary credentials.
             </p>
         </div>
 
         <div className="step mb-6">
             <h2 className="text-xl font-semibold mb-2">Step 2: Navigate to Upload</h2>
             <p>
-                Once logged in, navigate to the add section of the app. Look for an "Upload" button which accepts a file input (PNG or JPG only).
+                Once logged in, navigate to the add section of the app. Look for an Upload button which accepts a file input (PNG or JPG only).
             </p>
         </div>
 
         <div className="step mb-6">
             <h2 className="text-xl font-semibold mb-2">Step 3: Upload Medicine Labels</h2>
             <p>
-                Click the "Upload" button and select the picture of your medicine label from your device. You can only upload one file at any given time.
+                Click the Upload button and select the picture of your medicine label from your device. You can only upload one file at any given time.
             </p>
         </div>
 
         <div className="step mb-6">
             <h2 className="text-xl font-semibold mb-2">Step 4: View Your Uploaded Labels</h2>
             <p>
-                After uploading, go to the list section to view the list of labels you've uploaded. You should see details like the medicine name and description.
+                After uploading, go to the list section to view the list of labels you have uploaded. You should see details like the medicine name and description.
             </p>
         </div>
 
@@ -46,9 +46,9 @@ export default function Home() {
         </div>
 
         <div className="step">
-            <h2 className="text-xl font-semibold mb-2">That's It!</h2>
+            <h2 className="text-xl font-semibold mb-2">That is It!</h2>
             <p>
-                You've successfully learned how to upload and view your medicine labels. If you have any questions, feel free to contact our support team.
+                You have successfully learned how to upload and view your medicine labels. If you have any questions, feel free to contact our support team.
             </p>
         </div>
     </div>
