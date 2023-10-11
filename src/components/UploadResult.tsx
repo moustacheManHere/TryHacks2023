@@ -15,7 +15,7 @@ type UploadProps = {
 
 const UploadResult = ({ error, text, display, className }: UploadProps) => {
     return (
-        <div className={`${display ? "visible" : "hidden"}`}>
+        <div className={`w-96 ${display ? "visible" : "hidden"}`}>
             <Alert>
                 <div className={`flex ${className}`}>
                     <div className="flex flex-col justify-center p-3">

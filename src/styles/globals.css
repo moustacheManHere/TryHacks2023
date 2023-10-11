@@ -4,7 +4,7 @@
 
 /* Clerk Components */
 /* Remove Blue highlight */
-.cl-userButtonTrigger, .uniqueSearchBar {
+.cl-userButtonTrigger, .uniqueSearchBar, .uniqueUploadButton {
     box-shadow: none !important;
 }
 

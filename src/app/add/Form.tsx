@@ -16,7 +16,7 @@ const Form = ({onSubmit, inputRef, ...className} : FormProps ) => {
     <>
         <form onSubmit={onSubmit} className={`flex w-full max-w-sm items-center space-x-3  ${className}`}>
             <Input accept="image/png, image/jpeg" placeholder="File" type="file" ref={inputRef} />
-            <Button variant="secondary" size="icon" className="h-10 w-12">
+            <Button variant="secondary" size="icon" className="h-10 w-12 uniqueUploadButton">
                 <Upload />
             </Button>
         </form>
