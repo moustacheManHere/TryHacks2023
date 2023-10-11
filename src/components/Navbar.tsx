@@ -13,12 +13,12 @@ const Navbar = () => {
             url: '/'
         },
         {
-            name: 'Add',
-            url: '/add',
-        },
-        {
             name: 'Info',
             url: '/info',
+        },
+        {
+            name: 'Add',
+            url: '/add',
         },
         {
             name: 'List',

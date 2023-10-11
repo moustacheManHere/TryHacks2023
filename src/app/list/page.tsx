@@ -3,6 +3,7 @@ import Link from 'next/link';
 import SearchBar from '@/components/SearchBar';
 import GetUser from './getUser';
 import { useEffect, useState } from 'react';
+import { InformationIcon } from '@/components/SVGIcon';
 
 interface drugList {
     uid: string;
@@ -71,13 +72,16 @@ function ListDrugsPage() {
             </div>
             <ul className="pl-4">
                 {drugs.map((drug) => (
-                    <li key={drug.uid} className="mb-4 p-4 border border-gray-300 rounded-lg">
+                    <li key={drug.uid} className="mb-4 p-4 border border-gray-300 rounded-lg bg-medical-light">
                         <div className={`${loading ? "hidden" : "visible"}`}>
-                            <h2 className="text-xl font-semibold">{drug.name}</h2>
+                            <div className="flex gap-x-2">
+                                <h2 className="text-xl font-semibold">{drug.name}</h2>
+                                <Link href={`/list/${drug.drugID}`} className="self-center">
+                                    <div className={`${loading ? "hidden" : "visible"}`}><InformationIcon /></div>
+                                </Link>
+                            </div>
+
                             <p className="text-gray-600">{drug.description}</p>
-                            <Link href={`/info/${drug.drugID}`}>
-                                <span className={`text-blue-600 hover:underline ${loading ? "hidden" : "visible"}`}>See Details</span>
-                            </Link>
                         </div>
                         <div className={`${loading ? "visible" : "hidden"}`}>
                             <div>Loading...</div>

@@ -42,7 +42,8 @@ export const getCustDrugs = async (custID: string, drugID: string) => {
 export const getAllDrugs = async (custID: string) => {
     const records = await pb.collection('custDrugs').getFullList({
         filter: `custID="${custID}"`,
-        expand: 'drugID'
+        expand: 'drugID',
+        sort: 'drugID'
     });
 
     if (records.length === 0 || records === undefined) {
@@ -88,7 +89,7 @@ export const prettifyText = (text: string) => {
     text = text.replace(/([a-z])(\d+)/g, '\$1');
 
     // Adds space before every uppercase character and trim off the leading and trailing spaces
-    text = text.replace(/([A-Z]+)/g, ' $1').trim()
+    text = text.replace(/([A-Z]+)/g, ' $1').trim();
 
     return text;
 }

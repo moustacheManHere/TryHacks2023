@@ -36,7 +36,7 @@ const CollapseMenu = ({ items }: { items: string }) => {
             </div>
             <CollapsibleContent className="space-y-2">
                 {items.split("\n").map((item: string, index: number) => (
-                    <div className="w-full">
+                    <div className="w-full" key={index}>
                         <Alert>
                             <div className="flex justify-between items-center">
                                 <div className='flex'>
