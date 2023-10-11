@@ -2,3 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Clerk Components */
+/* Remove Blue highlight */
+.cl-userButtonTrigger, .uniqueSearchBar {
+    box-shadow: none !important;
+}
+
+.cl-internal-b3fm6y, .cl-userButtonPopoverFooter {
+    display: none !important;
+}
+
+/* ShadCN  Components */
+.uniqueSearchBar {
+    box-shadow: none !important;
+}
+
+::selection {
+    background-color: #d78873;
+    color: #fff;
+}

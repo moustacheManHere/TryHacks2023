@@ -1,8 +1,12 @@
-import React from 'react'
+import { UserProfile } from "@clerk/nextjs"
 
 const page = () => {
   return (
-    <div>This should be the profile page</div>
+    <>
+        <div className="flex justify-center">
+            <UserProfile />
+        </div>
+    </>
   )
 }
 
