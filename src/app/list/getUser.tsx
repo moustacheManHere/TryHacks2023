@@ -64,12 +64,13 @@ async function GetUser() {
         return null
     }
     var id:string = user.id
-    var res:ApiResponse|null = (await fetch(`https://mediassistdb.hop.sh/api/api/collections/customer/records?(custID="${id}")`).then(res => {return res.json()}))
+    var res:ApiResponse|null = (await fetch(`https://mediassistdb.hop.sh/api/collections/customer/records?filter=(custID="${id}")`).then(res => {return res.json()}))
     if (res == null){
         return 0
     }
     var userUniqueID = res.items[0].id
-    var nextres:NextApiResponse|null = (await fetch(`https://mediassistdb.hop.sh/api/collections/custDrugs/records?filter=(custID=${userUniqueID})&expand=drugID`).then(res => {return res.json()}))
+    var nextres:NextApiResponse|null = (await fetch(`https://mediassistdb.hop.sh/api/collections/custDrugs/records?filter=(custID="${userUniqueID}")&expand=drugID`).then(res => {return res.json()}))
+    
     if (nextres == null || nextres == undefined){
         return 0
     }
@@ -80,8 +81,10 @@ async function GetUser() {
             "name" : nextres.items[i].expand.drugID.name,
             "description" : nextres.items[i].expand.drugID.summary
         }
+        drugs.push(obj)
     }
     return drugs
+    
 }
 
 export default GetUser
