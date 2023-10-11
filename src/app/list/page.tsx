@@ -58,7 +58,7 @@ const ListDrugsPage: FC = () => {
         <div className="p-8">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
                 <h1 className="text-3xl font-semibold mb-2 sm:mb-0">Drug List</h1>
-                <Link href="/adddrug">
+                <Link href="/add">
                     <span className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300">Add</span>
                 </Link>
             </div>
@@ -76,7 +76,7 @@ const ListDrugsPage: FC = () => {
                     <li key={drug.id} className="mb-4 p-4 border border-gray-300 rounded-lg">
                         <h2 className="text-xl font-semibold">{drug.name}</h2>
                         <p className="text-gray-600">{drug.description}</p>
-                        <Link href="/druginfo">
+                        <Link href="/info">
                             <span className="text-blue-600 hover:underline">See Details</span>
                         </Link>
                     </li>
