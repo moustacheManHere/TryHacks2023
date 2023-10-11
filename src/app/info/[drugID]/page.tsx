@@ -1,9 +1,9 @@
-import React from 'react'
+import Page from "./getInfo"
 
-const Page = () => {
+export default function Info(drugID:any) {
   return (
-    <div>page</div>
+    <div>
+      <Page id ={drugID} />
+    </div>
   )
 }
-
-export default Page
