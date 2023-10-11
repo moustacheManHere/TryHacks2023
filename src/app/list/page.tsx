@@ -2,6 +2,8 @@
 
 import { FC, useState } from 'react';
 import Link from 'next/link';
+import SearchBar from '@/components/SearchBar';
+import { Button } from "@/components/ui/button";
 
 const ListDrugsPage: FC = () => {
     // Initial list of drugs
@@ -56,20 +58,22 @@ const ListDrugsPage: FC = () => {
 
     return (
         <div className="p-8">
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
+            <div className="flex flex-col sm:flex-row justify-center items-center mb-4  p-12">
                 <h1 className="text-3xl font-semibold mb-2 sm:mb-0">Drug List</h1>
-                <Link href="/add">
-                    <span className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300">Add</span>
-                </Link>
+              
             </div>
-            <div className="mb-4">
-                <input
-                    type="text"
+            <div className="flex justify-center mb-12 space-x-2">
+                <SearchBar
                     placeholder="Search drugs..."
-                    className="w-80 p-2 border border-gray-300 rounded"
                     value={searchTerm}
                     onChange={handleSearch}
                 />
+                <Button variant="medical" size="icon">
+                    <Link href='/add' className="flex flex-col justify-center items-center">
+                        <span className="bg-white h-0.5 w-5 rounded-sm translate-y-[0.2rem] p-0.5"></span>
+                        <span className="bg-white h-0.5 w-5 rounded-sm rotate-90  p-0.5"></span>
+                    </Link>
+                </Button>
             </div>
             <ul className="pl-4">
                 {drugs.map((drug) => (
