@@ -57,8 +57,8 @@ function ListDrugsPage() {
     };
 
     return (
-        <div className="p-8">
-            <div className="flex flex-col sm:flex-row justify-center items-center mb-4  p-12">
+        <div>
+            <div className="flex flex-col sm:flex-row justify-center items-center mb-4  pb-6 p-12 pt-24">
                 <div className="flex flex-col items-center space-y-3 mb-6">
                     <h1 className="font-bold text-6xl text-medical-dark/90">Drug List</h1>
                     <h2>Search through drugs from your list here</h2>
@@ -73,9 +73,9 @@ function ListDrugsPage() {
                 />
 
             </div>
-            <ul className="pl-4">
+            <ul className="pl-4 flex flex-col items-center">
                 {drugs.map((drug) => (
-                    <li key={drug.uid} className="mb-4 p-4 border border-gray-300 rounded-lg bg-medical-light">
+                    <li key={drug.uid} className="mb-4 p-4 border border-gray-300 rounded-lg bg-medical-light w-3/4">
                         <div className={`${loading ? "hidden" : "visible"}`}>
                             <div className="flex gap-x-2">
                                 <h2 className="text-xl font-semibold">{drug.name}</h2>
