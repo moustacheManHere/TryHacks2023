@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 
-export default function Drug({coins}) {//ignore coins as im using directly from the api
+export default function Coins({coins}) {
 
   return (
     <>
@@ -15,12 +15,12 @@ export default function Drug({coins}) {//ignore coins as im using directly from 
             height={70}
             priority
           /> */}
-                    <h3>{coin.name}</h3>
+                    {/* <h3>{drug.summary}</h3> 
+                    <p>{drug.genericname}</p>
+                    <p>{drug.background}</p> */}
+                    <h3>{coin.name}</h3> 
                     <p>{coin.symbol}</p>
                     <p>{coin.price}</p>
-                    <Link href="/druginfo">
-                      <span className="text-blue-600 hover:underline">See Details</span>
-                    </Link>
                 </li>
             ))}
      </ul>
